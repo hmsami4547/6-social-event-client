@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import { Link } from 'react-router';
+import { Link, Navigate, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 
 const Login = () => {
     const {signInUser, setUser} = useContext(AuthContext)
+    const navigate = useNavigate()
 const handleSubmit = (e)=>{
     e.preventDefault()
     const email = e.target.email.value
@@ -17,7 +18,7 @@ const handleSubmit = (e)=>{
         alert("Login successfully")
         console.log("The user is",user)
         setUser(user)
-      
+      navigate("/")
     }).then(err =>{ console.log(err)
    
     })
