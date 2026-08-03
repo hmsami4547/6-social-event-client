@@ -7,6 +7,7 @@ import Login from "../registration/Login";
 import Register from "../registration/Register";
 import CreateEvent from "../Body/CreateEvent";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import EventDetails from "../Body/EventDetails";
 
 
 const router = createBrowserRouter([
@@ -15,7 +16,12 @@ const router = createBrowserRouter([
     Component: Static,
     children: [{
         index : true,
-        Component:Home
+        Component:Home,
+        loader: ()=>fetch("http://localhost:3000/").then(res => res.json())
+    },{
+      path:"/:id",
+      element: <PrivateRoute><EventDetails></EventDetails></PrivateRoute>,
+      loader: ({params})=> fetch(`http://localhost:3000/${params.id}`).then(res => res.json())
     }]
   },{
     path:"/signin",
