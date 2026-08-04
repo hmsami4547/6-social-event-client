@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { AuthContext } from './Context/AuthContext';
 import { signOut } from 'firebase/auth';
+import { RxAvatar } from "react-icons/rx";
 import { auth } from './Firebase/firebase.init';
 import Swal from 'sweetalert2';
 const Navbar = () => {
@@ -33,11 +34,17 @@ const handleLogOut = () =>{
 }
 
 console.log("photo url is ", user?.photoURL)
+const navLinkClass = ({isActive})=>`
+${isActive?"bg-green-700 p-2 rounded-2xl":"p-2 hover:bg-green-700 rounded-2xl"}
+`
+const navLinkClassFirst = ({isActive})=>`
+${isActive?"bg-green-700 p-2 btn  rounded-2xl":"btn p-2 rounded-2xl hover:bg-green-500"}
+`
     return (
         <div>
                       <div className="navbar bg-base-100 shadow-sm">
   <div className="navbar-start">
-    <div className="dropdown">
+    <div className="dropdown lg:hidden md:hidden">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
       </div>
@@ -50,24 +57,28 @@ console.log("photo url is ", user?.photoURL)
       </ul>
     
     </div>
-    <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
-    { user &&   <div className='flex items-center'> 
-  <figure className=' '><img className='w-full h-10 ml-3 rounded-2xl' src={user?.photoURL} alt="" /></figure>
-  <p className='bold pl-4'>{user?.displayName}</p>
-  </div>}
+    <div>
+       <NavLink to="/eventcreate" className={navLinkClassFirst}>Create Event</NavLink>
+        <NavLink to="/manageEvents" className={navLinkClassFirst}>Manage Event</NavLink>
+    </div>
+   
   </div>
     
   <div className="navbar-center">
     <a className="btn btn-ghost text-xl">Social Event</a>
-    <Link>Upcoming Events</Link>
-    <Link to="/" className='pl-2 hover:bg-blue-500'>  Home</Link>
-    <Link to="/signin" className='pl-2 hover:bg-blue-500'>  Sign In</Link>
-    <Link to='/signup' className='pl-2 hover:bg-blue-500'>  Sign Up</Link>
+    
+    <NavLink to="/" className={navLinkClass}>  Home</NavLink>
+    <NavLink to="/signin" className={navLinkClass}>  Sign In</NavLink>
+    <NavLink to='/signup' className={navLinkClass}>  Sign Up</NavLink>
   </div>
   <div className="navbar-end">
-    <button className="btn btn-ghost btn-circle mr-20">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> </svg>
-    </button>
+     <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
+     <NavLink to="/userDetails">
+    { user &&   <div className='flex items-center'> 
+  <figure className=' '><img className='w-full h-10 ml-3 rounded-2xl' src={user.photoURL?user?.photoURL:<RxAvatar />} alt="" /></figure>
+  <p className='bold pl-4'>{user?.displayName}</p>
+  </div>}
+  </NavLink>
   </div>
 </div>
         </div>

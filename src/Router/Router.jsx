@@ -11,6 +11,7 @@ import EventDetails from "../Body/EventDetails";
 import ManageEvents from "../Body/ManageEvents";
 import Update from "../Body/Update";
 import MyEvent from "../Body/MyEvent";
+import UserDetails from "../User/UserDetails";
 
 
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   },
   {path: "/myEvent",
     element: <PrivateRoute><MyEvent></MyEvent></PrivateRoute>
+  },
+  {
+    path:"/userDetails",
+    element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute>
   }
 ]);
 
