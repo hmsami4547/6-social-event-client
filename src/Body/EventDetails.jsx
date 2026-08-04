@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useLoaderData, useNavigate } from 'react-router';
 import { FaLocationDot } from "react-icons/fa6";
 import { AuthContext } from '../Context/AuthContext';
+import Swal from 'sweetalert2';
 const EventDetails = () => {
     const data = useLoaderData()
     const {user} = useContext(AuthContext)
@@ -29,7 +30,12 @@ const response = await fetch("http://localhost:3000/myEvent",{
 })
 const result = await response.json()
 console.log("The booked event is",result)
-alert("Event is booked")
+//alert("Event is booked")
+Swal.fire({
+  title: "Congratulations!",
+  text: "You booked the event!",
+  icon: "success"
+});
 navigate("/myEvent")
 }catch(error){
     console.log(error)

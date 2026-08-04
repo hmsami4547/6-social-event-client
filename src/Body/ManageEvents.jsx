@@ -3,7 +3,7 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
 import { Link } from 'react-router';
-
+import Swal from 'sweetalert2';
 const ManageEvents = () => {
     const [data, setData] = useState([])
     const {user} = useContext(AuthContext)
@@ -27,17 +27,37 @@ fetchData();
     },[emails])
 
     const handleDelete =async (id)=>{
+Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then(async (result) => {
+  if (result.isConfirmed){
+
         try{
 const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
     method: "DELETE",
 
 })
 const result = await response.json()
-alert("Deleted successfully")
+//alert("Deleted successfully")
+Swal.fire({
+    title: "Deleted!",
+    text: "Your file has been deleted.",
+    icon: "success"
+  });
 const remainingData = data.filter(data => data._id !== id)
 setData(remainingData)
 
         }catch(error) {console.log(error)}
+
+  } 
+});
+
     }
     console.log(user)
     console.log(data)

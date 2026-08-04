@@ -3,7 +3,7 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router';
-
+import Swal from 'sweetalert2';
  const CreateEvent = () => {
 const {user} = useContext(AuthContext)
 const navigate = useNavigate()
@@ -28,8 +28,17 @@ eventDate: eventDate,
 eventType: eventType
 }
 
-
-try{
+Swal.fire({
+  title: "Are you sure?",
+  text: "Check all data again!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then(async (result) => {
+  if (result.isConfirmed){
+    try{
     const response = await fetch("http://localhost:3000/createEvent",{
         method: "POST",
         headers:{
@@ -40,11 +49,19 @@ try{
 
     const result = await response.json()
     console.log("Successful result is", result)
-    alert("Event created succefully")
-    navigate("//manageEvents")
+   // alert("Event created succefully")
+   Swal.fire({
+    title: "Done!",
+    text: "Event created.",
+    icon: "success"
+  });
+    navigate("/manageEvents")
 }catch(error){
     console.log(error)
 }
+  } 
+});
+
 }
 
 

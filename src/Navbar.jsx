@@ -3,16 +3,36 @@ import { Link } from 'react-router';
 import { AuthContext } from './Context/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from './Firebase/firebase.init';
-
+import Swal from 'sweetalert2';
 const Navbar = () => {
   const {user, LogOut} = useContext(AuthContext)
+  console.log(user)
 const handleLogOut = () =>{
-  LogOut(auth).then(()=>{
-    alert("Sign out successfully")
+   Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, Log out!"
+}).then((result) => {
+  if (result.isConfirmed){
+    LogOut(auth).then(()=>{
+      Swal.fire({
+    title: "Log out!",
+    text: "You log out.",
+    icon: "success"
+  });
+   // alert("Sign out successfully")
   }).then(err => console.log(err))
+  } 
+});
+  
+  
 }
 
-
+console.log("photo url is ", user?.photoURL)
     return (
         <div>
                       <div className="navbar bg-base-100 shadow-sm">
@@ -26,11 +46,13 @@ const handleLogOut = () =>{
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <Link to="/eventcreate">Create Event</Link>
         <Link to="/manageEvents">Manage Event</Link>
-        <li>Join Event</li>
+        
       </ul>
     
     </div>
     <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
+  <figure className=' '><img className='w-full h-10 ml-3 rounded-2xl' src={user?.photoURL} alt="" /></figure>
+  <p className='bold pl-4'>{user?.displayName}</p>
   </div>
     
   <div className="navbar-center">

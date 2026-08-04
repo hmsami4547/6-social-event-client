@@ -3,7 +3,7 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate, useParams } from 'react-router';
-
+import Swal from 'sweetalert2';
 const Update = () => {
 const {user} = useContext(AuthContext)
 const {id} = useParams()
@@ -29,6 +29,17 @@ eventAddress: eventAddress,
 eventDate: eventDate,
 eventType: eventType
 }
+
+Swal.fire({
+  title: "Are you sure?",
+  text: "Check before update!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, Update it!"
+}).then(async (result) => {
+  if (result.isConfirmed){
 try{
 const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
     method: "PATCH",
@@ -39,10 +50,20 @@ const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
 })
 const result = await response.json()
 console.log("updated result", result)
-alert("Result is updated")
+//alert("Result is updated")
+Swal.fire({
+    title: "Updated!",
+    text: "Event is updated.",
+    icon: "success"
+  });
 navigate("/manageEvents")
 
 }catch(error){console.log(error)}
+
+
+
+  } 
+});
 
 
 
