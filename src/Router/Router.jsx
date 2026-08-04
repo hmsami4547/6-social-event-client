@@ -8,6 +8,9 @@ import Register from "../registration/Register";
 import CreateEvent from "../Body/CreateEvent";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import EventDetails from "../Body/EventDetails";
+import ManageEvents from "../Body/ManageEvents";
+import Update from "../Body/Update";
+import MyEvent from "../Body/MyEvent";
 
 
 const router = createBrowserRouter([
@@ -33,6 +36,17 @@ const router = createBrowserRouter([
   {
     path:"/eventcreate",
     element: <PrivateRoute><CreateEvent></CreateEvent></PrivateRoute>
+  },
+  {
+    path: "/manageEvents",
+    element: <PrivateRoute><ManageEvents></ManageEvents></PrivateRoute>
+  },
+  {
+    path:"/update/:id",
+    element: <PrivateRoute><Update></Update></PrivateRoute>
+  },
+  {path: "/myEvent",
+    element: <PrivateRoute><MyEvent></MyEvent></PrivateRoute>
   }
 ]);
 

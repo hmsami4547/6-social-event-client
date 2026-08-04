@@ -42,9 +42,9 @@ const handleSubmit = (e)=>{
       <div className="card-body">
         <form onSubmit={handleSubmit}>
           <label className="label">Email</label>
-          <input name='email' type="email" className="input" placeholder="Email" />
+          <input required name='email' type="email" className="input" placeholder="Email" />
           <label className="label">Password</label>
-          <input name='password' type="password" className="input" placeholder="Password" />
+          <input required name='password' type="password" className="input" placeholder="Password" />
           <div>Don't you have account? <Link to="/signup" className='text-blue-500 underline'>Sign Up</Link></div>
           <button className="btn btn-neutral mt-4">Login</button>
         </form>

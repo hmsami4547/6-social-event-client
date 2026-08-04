@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
- const CreateEvent = () => {
+const Update = () => {
 const {user} = useContext(AuthContext)
+const {id} = useParams()
 const navigate = useNavigate()
+console.log(id)
 console.log(user.email)
 const handleSubmit= async (e)=>{
 e.preventDefault()
@@ -27,32 +29,32 @@ eventAddress: eventAddress,
 eventDate: eventDate,
 eventType: eventType
 }
-
-
 try{
-    const response = await fetch("http://localhost:3000/createEvent",{
-        method: "POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify(data)
-    })
+const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
+    method: "PATCH",
+    headers:{
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+})
+const result = await response.json()
+console.log("updated result", result)
+alert("Result is updated")
+navigate("/manageEvents")
 
-    const result = await response.json()
-    console.log("Successful result is", result)
-    alert("Event created succefully")
-    navigate("//manageEvents")
-}catch(error){
-    console.log(error)
-}
+}catch(error){console.log(error)}
+
+
+
+
+console.log(data)
 }
 
 
     return (
         <div>
-          <Navbar></Navbar>
-          <div>
-
+            <Navbar></Navbar>
+            <div>
 <div className="hero bg-base-200 min-h-screen">
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
@@ -74,7 +76,7 @@ try{
           <input required name='eventAddress' type="text" className="input" placeholder="Event address" />
           
           
-          <button className="btn btn-neutral mt-4">Create Event</button>
+          <button className="btn btn-neutral mt-4">Update the  Event</button>
       </form>
       </div>
     </div>
@@ -84,15 +86,14 @@ try{
 
 
 
+            </div>
 
 
 
 
 
-          </div>
-          <Footer></Footer>
-        </div>
+<Footer></Footer>        </div>
     );
 };
 
-export default CreateEvent;
+export default Update;

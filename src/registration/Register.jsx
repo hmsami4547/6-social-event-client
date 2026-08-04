@@ -35,11 +35,11 @@ const handleSubmit = (e) =>{
       <div className="card-body">
    <form onSubmit={handleSubmit}>
           <label className="label">Name</label>
-          <input name='name' type="text" className="input" placeholder="Your Name" />
+          <input required name='name' type="text" className="input" placeholder="Your Name" />
           <label className="label">Email</label>
-          <input name='email' type="email" className="input" placeholder="Email" />
+          <input required name='email' type="email" className="input" placeholder="Email" />
           <label className="label">Password</label>
-          <input name='password' type="password" className="input" placeholder="Password" />
+          <input required name='password' type="password" className="input" placeholder="Password" />
           <div>Do you have account? <Link to="/signin" className='text-blue-600 underline'>Sign In</Link></div>
           <button className="btn btn-neutral mt-4">Sign Up</button>
        </form>

@@ -1,0 +1,90 @@
+import React, { useContext, useEffect, useState } from 'react';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
+import { AuthContext } from '../Context/AuthContext';
+import { Link } from 'react-router';
+
+const ManageEvents = () => {
+    const [data, setData] = useState([])
+    const {user} = useContext(AuthContext)
+const emails = user.email
+    useEffect(()=>{
+const fetchData = async ()=>{
+try{
+const response = await fetch(`http://localhost:3000/createEvent?email=${emails}`)
+const datas = await response.json()
+
+setData(datas)
+
+}catch(error){
+    console.log(error)
+}
+
+
+}
+fetchData();
+
+    },[emails])
+
+    const handleDelete =async (id)=>{
+        try{
+const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
+    method: "DELETE",
+
+})
+const result = await response.json()
+alert("Deleted successfully")
+const remainingData = data.filter(data => data._id !== id)
+setData(remainingData)
+
+        }catch(error) {console.log(error)}
+    }
+    console.log(user)
+    console.log(data)
+    return (
+        <div>
+            <Navbar></Navbar>
+
+
+          
+
+  <div className='grid grid-cols-3  m-3 gap-3 '>
+           { data.map(data=> <div className='border-amber-50 bg-gradient-to-r from-blue-500  to-violet-500 rounded-2xl border-2 h-60' key={data?._id}>
+          
+<div className='flex justify-between items-center p-3'>
+<div className=' rounded-xl p-3'>category:{data?.eventType}</div>
+<div> {data?.email}</div>
+
+</div>
+<div className='font-bold p-3'>
+  Name:   {data?.name}
+</div>
+<div className='pl-3'>
+ Event Type:   {data?.eventName}
+</div>
+<div className='pl-3'>
+  Location:  {data?.eventAddress}
+</div>
+
+<div className='flex justify-between p-3 mb-0.5'>
+<Link to={`/update/${data._id}`} className='btn bg-violet-400  rounded-2xl '>Update</Link>
+<div onClick={()=>handleDelete(data._id)} className='btn bg-violet-400  rounded-2xl '>Delete</div>
+</div>
+
+
+
+           </div>)}
+  
+   
+        </div>
+
+
+           
+    
+            <Footer></Footer>
+            
+        </div>
+    );
+};
+
+export default ManageEvents;
