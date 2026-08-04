@@ -40,6 +40,8 @@ ${isActive?"bg-green-700 p-2 rounded-2xl":"p-2 hover:bg-green-700 rounded-2xl"}
 const navLinkClassFirst = ({isActive})=>`
 ${isActive?"bg-green-700 p-2 btn  rounded-2xl":"btn p-2 rounded-2xl hover:bg-green-500"}
 `
+const navLinkClassUser =({isActive})=>`
+${isActive?"border-b-2 rounded-2xl border-gray-500":"hover:border-b-2 rounded-2xl hover:border-gray-500"}`
     return (
         <div>
                       <div className="navbar bg-base-100 shadow-sm">
@@ -73,7 +75,7 @@ ${isActive?"bg-green-700 p-2 btn  rounded-2xl":"btn p-2 rounded-2xl hover:bg-gre
   </div>
   <div className="navbar-end">
      <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
-     <NavLink to="/userDetails">
+     <NavLink to="/userDetails" className={navLinkClassUser}>
     { user &&   <div className='flex items-center'> 
   <figure className=' '><img className='w-full h-10 ml-3 rounded-2xl' src={user.photoURL?user?.photoURL:<RxAvatar />} alt="" /></figure>
   <p className='bold pl-4'>{user?.displayName}</p>
