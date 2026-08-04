@@ -1,10 +1,11 @@
-import React, { use, useContext, useState } from 'react';
+import React, { use, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { Link, useLoaderData } from 'react-router';
 import { FaSearch } from "react-icons/fa";
 
 const Home = () => {
     const [search, setSearch]= useState("");
+  
     const data = useLoaderData()
     console.log(data)
 
@@ -27,23 +28,23 @@ type="text" />
     </div>
     {filteredEvent.length > 0 ?<div>
 <div className='grid grid-cols-3 m-3 gap-3 '>
-           { filteredEvent.map(data=> <div className='border-amber-50 bg-gradient-to-r from-blue-500  to-violet-500 rounded-2xl border-2 h-85' key={data._id}>
-            <figure className='h-1/2 w-full'><img className='w-full h-full' src={data.iconUrl} alt="" /></figure>
+           { filteredEvent.map(datas=> <div className='border-amber-50 bg-gradient-to-r from-blue-500  to-violet-500 rounded-2xl border-2 h-85' key={datas._id}>
+            <figure className='h-1/2 w-full'><img className='w-full h-full' src={datas.iconUrl} alt="" /></figure>
 <div className='flex justify-between p-3'>
-<div className='btn bg-blue-400 rounded-xl p-2'>{data.category}</div>
-<div>{data.dateLabel}</div>
+<div className='btn bg-blue-400 rounded-xl p-2'>{datas.category}</div>
+<div>{datas.dateLabel}</div>
 
 </div>
 <div className='pl-2'>
-    {data.title}
+    {datas.title}
 </div>
 <div className='pl-2'>
-    {data.location}
+    {datas.location}
 </div>
 
 <div className='flex justify-between p-2 mb-0.5'>
-<div>+{data.joinedCount} Joined</div>
-<Link to={data._id}  className='btn bg-violet-400  rounded-2xl '>Join</Link>
+<div>+{datas.joinedCount} Joined</div>
+<Link to={datas._id}  className='btn bg-violet-400  rounded-2xl '>Join</Link>
 </div>
 
 
@@ -60,7 +61,7 @@ type="text" />
         
         </div>}
 
- <div className='grid grid-cols-3 m-3 gap-3 '>
+ {/* <div className='grid grid-cols-3 m-3 gap-3 '>
            { data.map(data=> <div className='border-amber-50 bg-gradient-to-r from-blue-500  to-violet-500 rounded-2xl border-2 h-85' key={data._id}>
             <figure className='h-1/2 w-full'><img className='w-full h-full' src={data.iconUrl} alt="" /></figure>
 <div className='flex justify-between p-3'>
@@ -85,7 +86,7 @@ type="text" />
            </div>)}
   
    
-        </div>
+        </div> */}
 
        
         </div>

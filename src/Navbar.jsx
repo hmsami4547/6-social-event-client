@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from './Context/AuthContext';
 import { signOut } from 'firebase/auth';
 import { RxAvatar } from "react-icons/rx";
 import { auth } from './Firebase/firebase.init';
 import Swal from 'sweetalert2';
+import Theme from './Themes/Theme';
 const Navbar = () => {
+  const [theme, setTheme] = useState("light")
   const {user, LogOut} = useContext(AuthContext)
   console.log(user)
 const handleLogOut = () =>{
@@ -59,11 +61,12 @@ ${isActive?"border-b-2 rounded-2xl border-gray-500":"hover:border-b-2 rounded-2x
       </ul>
     
     </div>
-    <div>
+    <div className="">
        <NavLink to="/eventcreate" className={navLinkClassFirst}>Create Event</NavLink>
         <NavLink to="/manageEvents" className={navLinkClassFirst}>Manage Event</NavLink>
+       
     </div>
-   
+    <Theme />
   </div>
     
   <div className="navbar-center">
