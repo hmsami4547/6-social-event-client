@@ -85,7 +85,8 @@ console.log("update form data is",previousData)
         <div>
             <Navbar></Navbar>
             <div>
-<div className="hero bg-base-200 min-h-screen">
+<div className="hero bg-base-200 min-h-screen bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
+  text-white">
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
     

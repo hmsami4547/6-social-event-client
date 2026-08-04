@@ -45,8 +45,8 @@ ${isActive?"bg-green-700 p-2 btn  rounded-2xl":"btn p-2 rounded-2xl hover:bg-gre
 const navLinkClassUser =({isActive})=>`
 ${isActive?"border-b-2 rounded-2xl border-gray-500":"hover:border-b-2 rounded-2xl hover:border-gray-500"}`
     return (
-        <div>
-                      <div className="navbar bg-base-100 shadow-sm">
+        <div className=''>
+                      <div className="navbar  bg-gradient-to-br from-black  to-blue-800 shadow-sm">
   <div className="navbar-start">
     <div className="dropdown lg:hidden md:hidden">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">

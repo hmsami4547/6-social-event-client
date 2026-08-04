@@ -62,7 +62,8 @@ navigate("/myEvent")
  
     return (
         
-            <div className='h-100 border-2 text-xl font-bold border-amber-50 m-5 rounded-2xl p-4 bg-gradient-to-r from-blue-800 via-violet-700 to-purple-700'>   
+            <div className='h-100 border-2 text-xl font-bold border-amber-50 m-5 rounded-2xl p-4 bg-gradient-to-r from-blue-800 via-violet-700 to-purple-700 bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
+  text-white'>   
         <figure className='flex justify-center'><img className='h-40 ' src={data.iconUrl} alt="" />
         </figure>
         <div className='btn btn-primary bg-blue-400'>{data.category}</div>
