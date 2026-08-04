@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
-import { useNavigate, useParams } from 'react-router';
+import { useLoaderData, useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 const Update = () => {
 const {user} = useContext(AuthContext)
 const {id} = useParams()
+const previousData = useLoaderData()
 const navigate = useNavigate()
 console.log(id)
 console.log(user.email)
@@ -70,8 +71,16 @@ navigate("/manageEvents")
 
 console.log(data)
 }
+// useEffect(async ()=>{
+// try{
+// const response = await fetch(`http://localhost:3000/createEvent/${id}`)
+// const result = await response.json()
+// console.log("update form data is",result);
+// }catch(error){console.log(error)}
 
 
+// },[id])
+console.log("update form data is",previousData)
     return (
         <div>
             <Navbar></Navbar>
@@ -86,15 +95,15 @@ console.log(data)
       <div className="card-body">
       <form onSubmit={handleSubmit}>
           <label className="label">Name</label>
-          <input required name='name' type="text" className="input" placeholder="Your name" />
+          <input required name='name' type="text" className="input" placeholder="Your name" defaultValue={user.displayName}/>
           <label className="label">Event Name</label>
-          <input required name='eventName' type="text" className="input" placeholder="Event Name" />
+          <input required name='eventName' type="text" className="input" placeholder="Event Name" defaultValue={previousData.eventName}/>
           <label className="label">Event type</label>
-          <input required name='eventType' type="text" className="input" placeholder="Event type" />
+          <input required name='eventType' type="text" className="input" placeholder="Event type" defaultValue={previousData.eventType} />
           <label className="label">Event date</label>
-          <input required name='eventDate' type="text" className="input" placeholder="Event date" />
+          <input required name='eventDate' type="text" className="input" placeholder="Event date" defaultValue={previousData.eventDate} />
           <label className="label">Event address</label>
-          <input required name='eventAddress' type="text" className="input" placeholder="Event address" />
+          <input required name='eventAddress' type="text" className="input" placeholder="Event address" defaultValue={previousData.eventAddress} />
           
           
           <button className="btn btn-neutral mt-4">Update the  Event</button>
