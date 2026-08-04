@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa";
 import { Link, Navigate, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 import { auth, provider } from '../Firebase/firebase.init';
 const Login = () => {
+   const [showPassword, setShowPassword] = useState(false)
     const {signInUser, setUser,user, signInWithGoogle} = useContext(AuthContext)
     const navigate = useNavigate()
 const handleSubmit = (e)=>{
@@ -69,7 +72,11 @@ console.log(user)
           <label className="label">Email</label>
           <input required name='email' type="email" className="input" placeholder="Email" />
           <label className="label">Password</label>
-          <input required name='password' type="password" className="input" placeholder="Password" />
+         <div className='relative'>
+         <input required name='password' type={showPassword?"password":"text"} className="input" placeholder="Password" />
+         <button type='button' onClick={()=>setShowPassword(!showPassword)} className='flex justify-end absolute pl-65 top-1/3'>    {showPassword?< FaEye />:<FaEyeSlash /> }        </button>
+         
+                   </div>
           <div>Don't you have account? <Link to="/signup" className='text-blue-500 underline'>Sign Up</Link></div>
           <button className="btn btn-neutral mt-4">Login</button>
         </form>
