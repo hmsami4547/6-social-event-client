@@ -11,7 +11,7 @@ useEffect(()=>{
         setUser(users)
         setLoading(false)
     })
-    return ()=>unsubscribe
+    return ()=>unsubscribe ()
 },[])
 
 const createUser = (email, password) => {
@@ -26,9 +26,7 @@ const signInWithGoogle = (auth, provider) =>{
     return signInWithPopup(auth, provider)
 }
 
-const signUpWithGoogle = ()=>{
 
-}
 const signInUser = (email, password) =>{
     setLoading(true)
     return signInWithEmailAndPassword(auth, email, password)

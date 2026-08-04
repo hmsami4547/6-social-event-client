@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useLoaderData, useNavigate } from 'react-router';
 import { FaLocationDot } from "react-icons/fa6";
 import { AuthContext } from '../Context/AuthContext';
@@ -7,8 +7,12 @@ const EventDetails = () => {
     const data = useLoaderData()
     const {user} = useContext(AuthContext)
 const navigate = useNavigate()
+
+
+
     const handleJoin=async()=>{
         const datas = {
+            eventId: data._id,
 email : user.email,
 name: data.organizer.name,
 eventName: data.title,
@@ -20,7 +24,8 @@ organizerInitials : data.organizer.initials,
 
 }
 
-try{
+
+    try{
 const response = await fetch("http://localhost:3000/myEvent",{
     method: "POST",
     headers: {
@@ -30,6 +35,15 @@ const response = await fetch("http://localhost:3000/myEvent",{
 })
 const result = await response.json()
 console.log("The booked event is",result)
+console.log("The booked event is",response)
+if(response.status === 409){
+    Swal.fire({
+  title: "Sorry!",
+  text: "You booked the event before!",
+  icon: "info"
+});
+return;
+}
 //alert("Event is booked")
 Swal.fire({
   title: "Congratulations!",
@@ -41,8 +55,11 @@ navigate("/myEvent")
     console.log(error)
 }
 
+            
+
 
     }
+ 
     return (
         
             <div className='h-100 border-2 text-xl font-bold border-amber-50 m-5 rounded-2xl p-4 bg-gradient-to-r from-blue-800 via-violet-700 to-purple-700'>   

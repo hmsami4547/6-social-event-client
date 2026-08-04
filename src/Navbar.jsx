@@ -51,8 +51,10 @@ console.log("photo url is ", user?.photoURL)
     
     </div>
     <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
+    { user &&   <div className='flex items-center'> 
   <figure className=' '><img className='w-full h-10 ml-3 rounded-2xl' src={user?.photoURL} alt="" /></figure>
   <p className='bold pl-4'>{user?.displayName}</p>
+  </div>}
   </div>
     
   <div className="navbar-center">

@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 
 const PrivateRoute = ({children}) => {
-    const { user} = useContext(AuthContext)
+    const { user,loading} = useContext(AuthContext)
     const navigate = useNavigate()
+    if(loading){
+      return  <P>Data is loading</P>
+    }
     if(!user){
-    return navigate("/")
+    return <Navigate to="/signin" replace/>
        
     }
     if(user){
