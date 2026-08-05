@@ -5,6 +5,7 @@ import Footer from '../Footer';
 
 const UserDetails = () => {
     const {user} = useContext(AuthContext)
+    console.log(user)
     return (
         <div>
             <Navbar></Navbar>
