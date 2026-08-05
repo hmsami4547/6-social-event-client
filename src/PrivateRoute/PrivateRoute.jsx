@@ -6,7 +6,7 @@ const PrivateRoute = ({children}) => {
     const { user,loading} = useContext(AuthContext)
     const navigate = useNavigate()
     if(loading){
-      return  <P>Data is loading</P>
+      return  <span className="loading loading-infinity loading-xl"></span>
     }
     if(!user){
     return <Navigate to="/signin" replace/>

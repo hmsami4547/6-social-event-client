@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
  const CreateEvent = () => {
+  const [loading, setLoading]= useState(false)
 const {user} = useContext(AuthContext)
 const navigate = useNavigate()
 console.log(user.email)
@@ -38,7 +39,9 @@ Swal.fire({
   confirmButtonText: "Yes, Create event!"
 }).then(async (result) => {
   if (result.isConfirmed){
+   
     try{
+      setLoading(true)
     const response = await fetch("http://localhost:3000/createEvent",{
         method: "POST",
         headers:{
@@ -58,6 +61,8 @@ Swal.fire({
     navigate("/manageEvents")
 }catch(error){
     console.log(error)
+}finally{
+setLoading(false)
 }
   } 
 });
@@ -68,9 +73,7 @@ Swal.fire({
     return (
         <div>
           <Navbar></Navbar>
-          <div>
-
-<div className="hero bg-base-200 min-h-screen bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
+          {loading?<span className="loading loading-infinity loading-xl"></span>:<div className="hero bg-base-200 min-h-screen bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
   text-white">
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
@@ -98,16 +101,9 @@ Swal.fire({
     </div>
   </div>
 
-</div>
+</div>}
 
 
-
-
-
-
-
-
-          </div>
           <Footer></Footer>
         </div>
     );

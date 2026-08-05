@@ -11,7 +11,7 @@ import { sendEmailVerification } from 'firebase/auth';
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [error, serError]= useState("")
-    const {createUser, setUser, user,signInWithGoogle} = useContext(AuthContext)
+    const {createUser, setUser, user,signInWithGoogle,setLoading} = useContext(AuthContext)
 const navigate = useNavigate()
 const handleSubmit = (e) =>{
     e.preventDefault()
@@ -62,6 +62,8 @@ if(!strongPasswordRegex.test(password)){
     
   }).catch(err => {console.log(err)
 serError(err.message)
+  }).finally(()=>{
+    setLoading(false)
   })
 
    
@@ -83,6 +85,8 @@ e.preventDefault()
       navigate("/")
     }).then(err =>{ console.log(err)
    
+    }).finally(()=>{
+      setLoading(false)
     })
 
 

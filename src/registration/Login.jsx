@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import { auth, provider } from '../Firebase/firebase.init';
 const Login = () => {
    const [showPassword, setShowPassword] = useState(false)
-    const {signInUser, setUser,user, signInWithGoogle} = useContext(AuthContext)
+    const {signInUser, setUser,user, signInWithGoogle,setLoading} = useContext(AuthContext)
     const navigate = useNavigate()
 const handleSubmit = (e)=>{
     e.preventDefault()
@@ -40,6 +40,8 @@ const handleSubmit = (e)=>{
       navigate("/")
     }).then(err =>{ console.log(err)
    
+    }).finally(()=>{
+      setLoading(false)
     })
 
 
@@ -62,6 +64,8 @@ e.preventDefault()
       navigate("/")
     }).then(err =>{ console.log(err)
    
+    }).finally(()=>{
+      setLoading(false)
     })
 
 

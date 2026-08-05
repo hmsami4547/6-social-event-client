@@ -6,23 +6,25 @@ import Swal from 'sweetalert2';
 import Footer from '../Footer';
 const MyEvent = () => {
     const [data , setData] = useState([])
+    const [loading, setLoading] = useState(true)
     const {user} = useContext(AuthContext)
 const emails = user?.email
 console.log(emails)
     useEffect(()=>{
-const DeleteData = async (id) => {
-try{
-const responses = await fetch(`http://localhost:3000/myEvent/${id}`,{
-    method: "DELETE",
+// const DeleteData = async (id) => {
+// try{
+// const responses = await fetch(`http://localhost:3000/myEvent/${id}`,{
+//     method: "DELETE",
 
-})
-const result = await responses.json()
-alert("Deleted Succefully")
-const remaningData = data.filter(data => data._id !== id)
-setData(remaningData)
-}catch(error){console.log(error)}
-}
+// })
+// const result = await responses.json()
+// alert("Deleted Succefully")
+// const remaningData = data.filter(data => data._id !== id)
+// setData(remaningData)
+// }catch(error){console.log(error)}
+// }
         const fetchData = async () =>{
+            setLoading(true)
             try{
 const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`)
 const datas = await response.json()
@@ -30,7 +32,7 @@ setData(datas)
 
             }catch(error){
                 console.log(error)
-            }
+            }finally{setLoading(false)}
         }
 fetchData();
     },[emails])
@@ -60,9 +62,9 @@ const result = await responses.json()
   });
 const remaningData = data.filter(data => data._id !== id)
 setData(remaningData)
-}catch(error){console.log(error)}
+}catch(error){console.log(error)}finally{setLoading(false)}
     
-  } 
+  }
 });
 
 
@@ -71,7 +73,7 @@ setData(remaningData)
         
     <div>
     <Navbar></Navbar>
- <div className='grid grid-cols-3 m-3 gap-3 bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
+    {loading? <span className="loading loading-infinity loading-xl"></span> :<div className='grid grid-cols-3 m-3 gap-3 bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
   text-white'>
            { data.map(data=> <div className='border-amber-50 bg-gradient-to-r from-blue-500  to-violet-500 rounded-2xl border-2 h-85' key={data._id}>
             <figure className='h-1/2 w-full'><img className='w-full h-full' src={data.icon} alt="" /></figure>
@@ -97,7 +99,8 @@ setData(remaningData)
            </div>)}
   
    
-        </div>
+        </div>}
+ 
                 <Footer></Footer>
             </div>
        

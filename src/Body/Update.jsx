@@ -5,7 +5,7 @@ import { AuthContext } from '../Context/AuthContext';
 import { useLoaderData, useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 const Update = () => {
-const {user} = useContext(AuthContext)
+const {user,setLoading} = useContext(AuthContext)
 const {id} = useParams()
 const previousData = useLoaderData()
 const navigate = useNavigate()
