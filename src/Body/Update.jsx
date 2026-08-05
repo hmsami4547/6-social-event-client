@@ -9,7 +9,7 @@ const {user} = useContext(AuthContext)
 const {id} = useParams()
 const navigation = useNavigation()
 const previousData = useLoaderData()
-const navigation = useNavigate()
+const navigate = useNavigate()
 console.log(id)
 console.log(user.email)
 if(navigation.state === "loading"){
