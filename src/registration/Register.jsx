@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 import { auth, provider } from '../Firebase/firebase.init';
+import { sendEmailVerification } from 'firebase/auth';
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [error, serError]= useState("")
@@ -20,15 +21,15 @@ const handleSubmit = (e) =>{
     console.log(name, email, password)
 //const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
 const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\/;']{6,}$/
-const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-if(!gmailRegex.test(email)){
-    Swal.fire({
-    title: "Invalid email address",
-    text: "Email must be @gmail.com type",
-    icon: "error",
-  });
-  return
-}
+// const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+// if(!gmailRegex.test(email)){
+//     Swal.fire({
+//     title: "Invalid email address",
+//     text: "Email must be @gmail.com type",
+//     icon: "error",
+//   });
+//   return
+// }
 if(!strongPasswordRegex.test(password)){
   Swal.fire({
     title: "Invalid Password",
@@ -40,13 +41,23 @@ if(!strongPasswordRegex.test(password)){
   createUser(email, password).then(users =>{
     const user = users.user
     //alert("Registration Completed")
-     Swal.fire({
-              title: "Congratulations!",
-              text: "Registered successfully!",
-              icon: "success"
-            });
      console.log("The user is ",user)
-     navigate("/")
+    sendEmailVerification(user).then(()=>{
+        Swal.fire({
+                title: "verify your email!",
+                text: "Please check mail bok or in spam box",
+                icon: "info"
+              });
+
+              auth.signOut().then(()=>{
+                navigate("/signin")
+              })
+      
+
+    })
+     
+    
+    
    
     
   }).catch(err => {console.log(err)

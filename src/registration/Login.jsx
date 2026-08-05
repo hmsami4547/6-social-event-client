@@ -20,6 +20,16 @@ const handleSubmit = (e)=>{
     signInUser(email, password).then(users =>{
         const usered = users.user
         //alert("Login successfully")
+        if(!usered.emailVerified){
+          console.log("The user is",usered)
+ Swal.fire({
+          title: "Email is not verified!",
+          text: "Please verify your email!",
+          icon: "info"
+        });
+        auth.signOut()
+        return;
+        }
         Swal.fire({
           title: "Congratulations!",
           text: "Login successfully!",
