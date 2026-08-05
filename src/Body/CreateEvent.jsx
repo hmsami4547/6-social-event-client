@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
  const CreateEvent = () => {
   const [loading, setLoading]= useState(false)
-const {user} = useContext(AuthContext)
+const {user,LogOut} = useContext(AuthContext)
 const navigate = useNavigate()
 console.log(user.email)
 const handleSubmit= async (e)=>{
@@ -47,9 +47,14 @@ Swal.fire({
         headers:{
             "Content-Type":"application/json"
         },
+        credentials: "include",
         body: JSON.stringify(data)
     })
-
+if(response.status === 401 || response.status === 403){
+   Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+            LogOut();
+            return
+}
     const result = await response.json()
     console.log("Successful result is", result)
    // alert("Event created succefully")

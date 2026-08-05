@@ -10,6 +10,16 @@ useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth,(users)=>{
         setUser(users)
         setLoading(false)
+        if(users?.email){
+            try{
+await fetch('http://localhost:3000/jwt',{
+    method: "POST",
+    headers:{"Content-Type" : "application/json"},
+    credentials: "include",
+    body: JSON.stringify({email: users.email})
+})
+            }catch(error){console.log(error)}
+        }
     })
     return ()=>unsubscribe ()
 },[])
@@ -18,9 +28,7 @@ const createUser = (email, password) => {
 setLoading(true)
 return createUserWithEmailAndPassword(auth, email, password)
 }
-const logOut = () =>{
-    setUser(null)
-}
+
 const signInWithGoogle = (auth, provider) =>{
     setLoading(true)
     return signInWithPopup(auth, provider)
@@ -34,6 +42,12 @@ const signInUser = (email, password) =>{
 
 const LogOut = () =>{
     setLoading(true)
+    try{
+await fetch('http://localhost:3000/logout',{
+    method: "POST",
+    credentials: "include"
+})
+    }catch(error){console.log(error)}
     return signOut(auth)
 }
 const value ={

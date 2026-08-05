@@ -5,7 +5,7 @@ import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 const EventDetails = () => {
     const data = useLoaderData()
-    const {user} = useContext(AuthContext)
+    const {user,LogOut} = useContext(AuthContext)
 const navigate = useNavigate()
 const navigation = useNavigation()
 
@@ -33,8 +33,18 @@ const response = await fetch("http://localhost:3000/myEvent",{
     headers: {
         "Content-Type": "application/json"
     },
+    credentials: "include",
     body: JSON.stringify(datas)
 })
+if(response.status === 401 || response.status === 403){
+                Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+LogOut()
+return;
+}
+if(response.status === 409){
+                Swal.fire({ title: "ALready joined", text: "You have already joined in this.", icon: "info" });
+return
+}
 const result = await response.json()
 console.log("The booked event is",result)
 console.log("The booked event is",response)

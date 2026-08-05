@@ -5,7 +5,7 @@ import { AuthContext } from '../Context/AuthContext';
 import { useLoaderData, useNavigate, useNavigation, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 const Update = () => {
-const {user} = useContext(AuthContext)
+const {user, LogOut} = useContext(AuthContext)
 const {id} = useParams()
 const navigation = useNavigation()
 const previousData = useLoaderData()
@@ -52,8 +52,14 @@ const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
     headers:{
         "Content-Type": "application/json"
     },
+    credentials: "include",
     body: JSON.stringify(data)
 })
+if(response.status === 401 || response.status === 409){
+            Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+LogOut()
+return
+}
 const result = await response.json()
 console.log("updated result", result)
 //alert("Result is updated")

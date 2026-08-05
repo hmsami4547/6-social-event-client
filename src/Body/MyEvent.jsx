@@ -7,7 +7,7 @@ import Footer from '../Footer';
 const MyEvent = () => {
     const [data , setData] = useState([])
     const [loading, setLoading] = useState(true)
-    const {user} = useContext(AuthContext)
+    const {user,LogOut} = useContext(AuthContext)
 const emails = user?.email
 console.log(emails)
     useEffect(()=>{
@@ -26,7 +26,14 @@ console.log(emails)
         const fetchData = async () =>{
             setLoading(true)
             try{
-const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`)
+const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`,{
+    credentials:'include'
+})
+if(response.status === 401 || response.status === 403){
+                Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+LogOut()
+return
+}
 const datas = await response.json()
 setData(datas)
 
@@ -53,6 +60,11 @@ try{
 const responses = await fetch(`http://localhost:3000/myEvent/${id}`,{
     method: "DELETE",
 })
+if(responses.status === 401 || responses.status === 403){
+                Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+LogOut()
+return
+}
 const result = await responses.json()
 //alert("Deleted Succefully")
  Swal.fire({

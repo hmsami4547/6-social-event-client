@@ -7,13 +7,22 @@ import Swal from 'sweetalert2';
 const ManageEvents = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
-    const {user} = useContext(AuthContext)
+    const {user,LogOut} = useContext(AuthContext)
 const emails = user.email
     useEffect(()=>{
 const fetchData = async ()=>{
     setLoading(true)
 try{
-const response = await fetch(`http://localhost:3000/createEvent?email=${emails}`)
+const response = await fetch(`http://localhost:3000/createEvent?email=${emails}`,
+    {
+        credentials:'include'
+    }
+)
+if(response.status === 401 || response.status === 409){
+            Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+LogOut()
+return
+}
 const datas = await response.json()
 
 setData(datas)
@@ -47,6 +56,11 @@ const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
     method: "DELETE",
 
 })
+if(response.status === 401 || response.status === 403){
+                Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });
+LogOut() 
+return
+}
 const result = await response.json()
 //alert("Deleted successfully")
 Swal.fire({

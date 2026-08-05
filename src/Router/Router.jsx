@@ -45,7 +45,9 @@ const router = createBrowserRouter([
   {
     path:"/update/:id",
     element: <PrivateRoute><Update></Update></PrivateRoute>,
-    loader: ({params})=>fetch(`http://localhost:3000/createEvent/${params.id}`).then(res => res.json())
+    loader: ({params})=>fetch(`http://localhost:3000/createEvent/${params.id}`,
+      {credentials: 'include'}
+    ).then(res => res.json())
   },
   {path: "/myEvent",
     element: <PrivateRoute><MyEvent></MyEvent></PrivateRoute>
