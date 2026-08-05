@@ -2,15 +2,19 @@ import React, { useContext, useEffect } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { AuthContext } from '../Context/AuthContext';
-import { useLoaderData, useNavigate, useParams } from 'react-router';
+import { useLoaderData, useNavigate, useNavigation, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 const Update = () => {
-const {user,setLoading} = useContext(AuthContext)
+const {user} = useContext(AuthContext)
 const {id} = useParams()
+const navigation = useNavigation()
 const previousData = useLoaderData()
-const navigate = useNavigate()
+const navigation = useNavigate()
 console.log(id)
 console.log(user.email)
+if(navigation.state === "loading"){
+  return (<span className="loading loading-infinity loading-xl"></span>)
+}
 const handleSubmit= async (e)=>{
 e.preventDefault()
 
@@ -30,6 +34,7 @@ eventAddress: eventAddress,
 eventDate: eventDate,
 eventType: eventType
 }
+
 
 Swal.fire({
   title: "Are you sure?",

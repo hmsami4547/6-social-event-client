@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, useLoaderData, useNavigate } from 'react-router';
+import { Link, useLoaderData, useNavigate, useNavigation } from 'react-router';
 import { FaLocationDot } from "react-icons/fa6";
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
@@ -7,9 +7,11 @@ const EventDetails = () => {
     const data = useLoaderData()
     const {user} = useContext(AuthContext)
 const navigate = useNavigate()
+const navigation = useNavigation()
 
-
-
+if(navigation.state === "loading"){
+    return(<span className="loading loading-infinity loading-xl flex justify-center"></span>)
+}
     const handleJoin=async()=>{
         const datas = {
             eventId: data._id,

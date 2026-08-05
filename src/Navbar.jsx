@@ -64,6 +64,8 @@ ${isActive?"border-b-2 rounded-2xl border-gray-500":"hover:border-b-2 rounded-2x
     <div className="">
        <NavLink to="/eventcreate" className={navLinkClassFirst}>Create Event</NavLink>
         <NavLink to="/manageEvents" className={navLinkClassFirst}>Manage Event</NavLink>
+        <NavLink to="/myEvent" className={navLinkClassFirst}>My booked Event</NavLink>
+
        
     </div>
     <Theme />

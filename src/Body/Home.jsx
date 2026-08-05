@@ -1,14 +1,16 @@
 import React, { use, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useNavigation } from 'react-router';
 import { FaSearch } from "react-icons/fa";
 
 const Home = () => {
     const [search, setSearch]= useState("");
-  
+  const navigation = useNavigation();
     const data = useLoaderData()
     console.log(data)
-
+if(navigation.state === "loading"){
+    return (<span className="loading loading-infinity loading-xl"></span>)
+}
 const filteredEvent = data.filter((data)=>{
 return data.title.toLowerCase().includes(search.toLowerCase())
 }) 
