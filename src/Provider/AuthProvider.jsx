@@ -10,7 +10,8 @@ useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth,(users)=>{
         setUser(users)
         setLoading(false)
-        if(users?.email){
+        const handle = async ()=>{
+ if(users?.email){
             try{
 await fetch('http://localhost:3000/jwt',{
     method: "POST",
@@ -20,6 +21,8 @@ await fetch('http://localhost:3000/jwt',{
 })
             }catch(error){console.log(error)}
         }
+        }
+       handle();
     })
     return ()=>unsubscribe ()
 },[])
@@ -42,16 +45,19 @@ const signInUser = (email, password) =>{
 
 const LogOut = () =>{
     setLoading(true)
-    try{
+    const handle = async()=>{
+ try{
 await fetch('http://localhost:3000/logout',{
     method: "POST",
     credentials: "include"
 })
     }catch(error){console.log(error)}
+    }
+   handle();
     return signOut(auth)
 }
 const value ={
-    user, logOut, createUser, signInUser, LogOut, setUser,signInWithGoogle,loading,setLoading
+    user, createUser, signInUser, LogOut, setUser,signInWithGoogle,loading,setLoading
 }
 return(
 <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

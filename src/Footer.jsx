@@ -3,7 +3,8 @@ import React from 'react';
 const Footer = () => {
     return (
         <div>
-            <footer className="footer sm:footer-horizontal  
+            <footer className="footer grid grid-cols-3 gap-4 sm:footer-horizontal
+              
   bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
    text-neutral-content p-10">
   <nav>

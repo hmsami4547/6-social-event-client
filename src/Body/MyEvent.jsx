@@ -85,7 +85,7 @@ setData(remaningData)
         
     <div>
     <Navbar></Navbar>
-    {loading? <span className="loading loading-infinity loading-xl"></span> :<div className='grid grid-cols-3 m-3 gap-3 bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
+    {loading? <span className="loading loading-infinity loading-xl"></span> :<div className='grid lg:grid-cols-3 md:grid-cols-3 m-3 gap-3 bg-[radial-gradient(ellipse_at_50%_45%,rgba(25,76,110,0.9)_0%,rgba(16,38,58,0.8)_30%,rgba(9,12,30,1)_75%)]
   text-white'>
            { data.map(data=> <div className='border-amber-50 bg-gradient-to-r from-blue-500  to-violet-500 rounded-2xl border-2 h-85' key={data._id}>
             <figure className='h-1/2 w-full'><img className='w-full h-full' src={data.icon} alt="" /></figure>

@@ -55,13 +55,16 @@ ${isActive?"border-b-2 rounded-2xl border-gray-500":"hover:border-b-2 rounded-2x
       <ul
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <Link to="/eventcreate">Create Event</Link>
-        <Link to="/manageEvents">Manage Event</Link>
-        
+          <NavLink to="/eventcreate" className={navLinkClassFirst}>Create Event</NavLink>
+        <NavLink to="/manageEvents" className={navLinkClassFirst}>Manage Event</NavLink>
+        <NavLink to="/myEvent" className={navLinkClassFirst}>My booked Event</NavLink>
+         <NavLink to="/" className={navLinkClassFirst}>  Home</NavLink>
+    <NavLink to="/signin" className={navLinkClassFirst}>  Sign In</NavLink>
+    <NavLink to='/signup' className={navLinkClassFirst}>  Sign Up</NavLink>
       </ul>
     
     </div>
-    <div className="">
+    <div className="hidden sm:block">
        <NavLink to="/eventcreate" className={navLinkClassFirst}>Create Event</NavLink>
         <NavLink to="/manageEvents" className={navLinkClassFirst}>Manage Event</NavLink>
         <NavLink to="/myEvent" className={navLinkClassFirst}>My booked Event</NavLink>
@@ -70,15 +73,27 @@ ${isActive?"border-b-2 rounded-2xl border-gray-500":"hover:border-b-2 rounded-2x
     </div>
     <Theme />
   </div>
-    
-  <div className="navbar-center">
+    {/* <a className="btn btn-ghost text-xl">Social Event</a> */}
+    <div className="navbar-center lg:hidden sm:hidden">
+       <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
+     <NavLink to="/userDetails" className={navLinkClassUser}></NavLink>
+  <NavLink to="/userDetails" className={navLinkClassUser}>
+    { user &&   <div className='flex items-center'> 
+  <figure className=' '><img className='w-full h-10 ml-3 rounded-2xl' src={user.photoURL?user?.photoURL:<RxAvatar />} alt="" /></figure>
+  <p className='bold pl-4'>{user?.displayName}</p>
+  </div>}
+  </NavLink>
+
+
+    </div>
+  <div className="navbar-center hidden sm:block">
     <a className="btn btn-ghost text-xl">Social Event</a>
     
     <NavLink to="/" className={navLinkClass}>  Home</NavLink>
     <NavLink to="/signin" className={navLinkClass}>  Sign In</NavLink>
     <NavLink to='/signup' className={navLinkClass}>  Sign Up</NavLink>
   </div>
-  <div className="navbar-end">
+  <div className="navbar-end hidden lg:flex md:flex">
      <div>{user?<div className='btn btn-primary' onClick={handleLogOut}>Log out</div>:<Link className='btn btn-primary' to="/signin">Log in</Link>}</div>
      <NavLink to="/userDetails" className={navLinkClassUser}>
     { user &&   <div className='flex items-center'> 

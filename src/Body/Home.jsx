@@ -17,7 +17,9 @@ if(!user?.email){
 }
 const emails = user.email
 try{
-const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`)
+const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`,{
+    credentials:"include"
+})
 const result = await response.json()
 const ids = result.map(item => item.eventId)
 setBooked(ids)
@@ -53,7 +55,7 @@ className='input input-bordered w-full max-w-md'
 type="text" />
     </div>
     {filteredEvent.length > 0 ?<div>
-<div className='grid grid-cols-3 m-3 gap-3 '>
+<div className='grid lg:grid-cols-3 md:grid-cols-3 m-3 gap-3 '>
            { filteredEvent.map((datas)=>{
  const alreadyJoined = booked.includes(datas._id)
             return(    
