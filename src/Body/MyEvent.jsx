@@ -61,6 +61,7 @@ fetchData();
 try{
 const responses = await fetch(`${API_URL}/myEvent/${id}`,{
     method: "DELETE",
+    credentials: "include"
 })
 if(responses.status === 401 || responses.status === 403){
                 Swal.fire({ title: "Session expired", text: "Please log in again.", icon: "warning" });

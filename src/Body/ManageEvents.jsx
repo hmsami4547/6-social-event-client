@@ -55,6 +55,7 @@ Swal.fire({
         try{
 const response = await fetch(`${API_URL}/createEvent/${id}`,{
     method: "DELETE",
+    credentials: "include"
 
 })
 if(response.status === 401 || response.status === 403){
