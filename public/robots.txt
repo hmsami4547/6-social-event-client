@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /eventcreate
+Disallow: /manageEvents
+Disallow: /update/
+Disallow: /myEvent
+Disallow: /userDetails
+
+Sitemap: https://6-social-event-client.vercel.app/sitemap.xml
