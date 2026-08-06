@@ -8,6 +8,7 @@ const Home = () => {
     const [booked, setBooked]= useState([])
   const navigation = useNavigation();
   const {user} = useContext(AuthContext)
+  const API_URL = import.meta.env.VITE_API_URL;
     const data = useLoaderData()
     console.log(data)
     useEffect(()=>{
@@ -17,7 +18,7 @@ if(!user?.email){
 }
 const emails = user.email
 try{
-const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`,{
+const response = await fetch(`${API_URL}/myEvent?email=${emails}`,{
     credentials:"include"
 })
 const result = await response.json()

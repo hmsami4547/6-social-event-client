@@ -6,6 +6,7 @@ import { auth } from "../Firebase/firebase.init"
 export const AuthProvider =({children}) =>{
 const [user, setUser] = useState(null)
 const [loading, setLoading] = useState(true)
+const API_URL = import.meta.env.VITE_API_URL;
 useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth,(users)=>{
         setUser(users)
@@ -13,7 +14,7 @@ useEffect(()=>{
         const handle = async ()=>{
  if(users?.email){
             try{
-await fetch('http://localhost:3000/jwt',{
+await fetch(`${API_URL}/jwt`,{
     method: "POST",
     headers:{"Content-Type" : "application/json"},
     credentials: "include",
@@ -47,7 +48,7 @@ const LogOut = () =>{
     setLoading(true)
     const handle = async()=>{
  try{
-await fetch('http://localhost:3000/logout',{
+await fetch(`${API_URL}/logout`,{
     method: "POST",
     credentials: "include"
 })

@@ -10,6 +10,8 @@ const {id} = useParams()
 const navigation = useNavigation()
 const previousData = useLoaderData()
 const navigate = useNavigate()
+     const API_URL = import.meta.env.VITE_API_URL;
+
 console.log(id)
 console.log(user.email)
 if(navigation.state === "loading"){
@@ -47,7 +49,7 @@ Swal.fire({
 }).then(async (result) => {
   if (result.isConfirmed){
 try{
-const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
+const response = await fetch(`${API_URL}/createEvent/${id}`,{
     method: "PATCH",
     headers:{
         "Content-Type": "application/json"

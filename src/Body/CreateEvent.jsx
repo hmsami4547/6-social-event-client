@@ -12,7 +12,7 @@ console.log(user.email)
 const handleSubmit= async (e)=>{
 e.preventDefault()
 
-
+const API_URL = import.meta.env.VITE_API_URL;
 const eventName = e.target.eventName.value 
 const eventType = e.target.eventType.value 
 const eventDate = e.target.eventDate.value 
@@ -42,7 +42,7 @@ Swal.fire({
    
     try{
       setLoading(true)
-    const response = await fetch("http://localhost:3000/createEvent",{
+    const response = await fetch(`${API_URL}http://localhost:3000/createEvent`,{
         method: "POST",
         headers:{
             "Content-Type":"application/json"

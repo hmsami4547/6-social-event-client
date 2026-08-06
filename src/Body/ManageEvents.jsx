@@ -9,11 +9,12 @@ const ManageEvents = () => {
     const [loading, setLoading] = useState(true)
     const {user,LogOut} = useContext(AuthContext)
 const emails = user.email
+ const API_URL = import.meta.env.VITE_API_URL;
     useEffect(()=>{
 const fetchData = async ()=>{
     setLoading(true)
 try{
-const response = await fetch(`http://localhost:3000/createEvent?email=${emails}`,
+const response = await fetch(`${API_URL}/createEvent?email=${emails}`,
     {
         credentials:'include'
     }
@@ -52,7 +53,7 @@ Swal.fire({
   if (result.isConfirmed){
 
         try{
-const response = await fetch(`http://localhost:3000/createEvent/${id}`,{
+const response = await fetch(`${API_URL}/createEvent/${id}`,{
     method: "DELETE",
 
 })

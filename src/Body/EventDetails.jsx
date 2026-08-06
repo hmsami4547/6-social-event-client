@@ -4,6 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 const EventDetails = () => {
+    const API_URL = import.meta.env.VITE_API_URL;
     const data = useLoaderData()
     const {user,LogOut} = useContext(AuthContext)
 const navigate = useNavigate()
@@ -28,7 +29,7 @@ organizerInitials : data.organizer.initials,
 
 
     try{
-const response = await fetch("http://localhost:3000/myEvent",{
+const response = await fetch(`${API_URL}/myEvent`,{
     method: "POST",
     headers: {
         "Content-Type": "application/json"

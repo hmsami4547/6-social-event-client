@@ -12,8 +12,9 @@ import ManageEvents from "../Body/ManageEvents";
 import Update from "../Body/Update";
 import MyEvent from "../Body/MyEvent";
 import UserDetails from "../User/UserDetails";
+import ErrorPage from "../Error/ErrorPage";
 
-
+const API_URL = import.meta.env.VITE_API_URL;
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,11 +22,11 @@ const router = createBrowserRouter([
     children: [{
         index : true,
         Component:Home,
-        loader: ()=>fetch("http://localhost:3000/").then(res => res.json())
+        loader: ()=>fetch(`${API_URL}`).then(res => res.json())
     },{
       path:"/:id",
       element: <PrivateRoute><EventDetails></EventDetails></PrivateRoute>,
-      loader: ({params})=> fetch(`http://localhost:3000/${params.id}`).then(res => res.json())
+      loader: ({params})=> fetch(`${API_URL}/${params.id}`).then(res => res.json())
     }]
   },{
     path:"/signin",
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   {
     path:"/update/:id",
     element: <PrivateRoute><Update></Update></PrivateRoute>,
-    loader: ({params})=>fetch(`http://localhost:3000/createEvent/${params.id}`,
+    loader: ({params})=>fetch(`${API_URL}/createEvent/${params.id}`,
       {credentials: 'include'}
     ).then(res => res.json())
   },
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
   {
     path:"/userDetails",
     element: <PrivateRoute><UserDetails></UserDetails></PrivateRoute>
+  },
+  {
+    path: "/*",
+    Component: ErrorPage
   }
 ]);
 

@@ -8,6 +8,8 @@ const MyEvent = () => {
     const [data , setData] = useState([])
     const [loading, setLoading] = useState(true)
     const {user,LogOut} = useContext(AuthContext)
+     const API_URL = import.meta.env.VITE_API_URL;
+
 const emails = user?.email
 console.log(emails)
     useEffect(()=>{
@@ -26,7 +28,7 @@ console.log(emails)
         const fetchData = async () =>{
             setLoading(true)
             try{
-const response = await fetch(`http://localhost:3000/myEvent?email=${emails}`,{
+const response = await fetch(`${API_URL}/myEvent?email=${emails}`,{
     credentials:'include'
 })
 if(response.status === 401 || response.status === 403){
@@ -57,7 +59,7 @@ fetchData();
 }).then(async (result) => {
   if (result.isConfirmed){
 try{
-const responses = await fetch(`http://localhost:3000/myEvent/${id}`,{
+const responses = await fetch(`${API_URL}/myEvent/${id}`,{
     method: "DELETE",
 })
 if(responses.status === 401 || responses.status === 403){
