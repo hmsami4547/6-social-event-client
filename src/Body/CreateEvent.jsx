@@ -42,7 +42,7 @@ Swal.fire({
    
     try{
       setLoading(true)
-    const response = await fetch(`${API_URL}http://localhost:3000/createEvent`,{
+    const response = await fetch(`${API_URL}/createEvent`,{
         method: "POST",
         headers:{
             "Content-Type":"application/json"
