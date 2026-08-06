@@ -22,7 +22,8 @@ const router = createBrowserRouter([
     children: [{
         index : true,
         Component:Home,
-        loader: ()=>fetch(`${API_URL}`).then(res => res.json())
+        loader: ()=>fetch(`${API_URL}`).then(res => res.json()),
+        errorElement: <ErrorPage></ErrorPage>
     },{
       path:"/:id",
       element: <PrivateRoute><EventDetails></EventDetails></PrivateRoute>,
